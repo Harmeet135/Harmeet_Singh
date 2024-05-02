@@ -42,33 +42,27 @@ const PromptBox =({ onHide })=> {
   
   
   
-useEffect(() => {
-  function handleClickOutside(event) {
-    // Ensure that the promptBoxRef is current and the event target is not within the promptBoxRef
-    if (promptBoxRef.current && !promptBoxRef.current.contains(event.target)) {
-      // onHide();
-      console.log("dd")
-    }else{
-      console.log("shr")
+  useEffect(() => {
+    function handleClickOutside(event) {
+
+      console.log(event)
+      if (!event.target.closest("plasmo-csui")) {
+        onHide();
+      }
     }
-  }
-
-  // Attach the event listener to the document
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    // Clean up the event listener when the component unmounts
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, [onHide]);
-
-
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onHide]);
+  
   const handleInputChange = (e) => {
     e.stopPropagation();
     setPromptText(e.target.value);
   };
   return (
-    <div ref={promptBoxRef} className='fixed w-full flex justify-center items-center bottom-[28rem] right-[2rem] z-50'>
-      <div  className=' flex flex-col bg-[#F9FAFB] rounded-lg p-4 w-full mx-4 max-w-[500px] gap-4 items-center shadow-md'>
+    <div ref={promptBoxRef} className='fixed w-full max-w-[500px] flex justify-center items-center bottom-[28rem] right-[50%] z-50'>
+    <div  className=' flex flex-col bg-[#F9FAFB] rounded-lg p-4 w-full mx-4  gap-4 items-center shadow-md'>
         <div className="w-full overflow-y-auto max-h-[300px] mb-4">
           {chatHistory.map((entry, index) => (
             <div key={index} className="flex flex-col w-full justify-between px-4 py-2 gap-4">

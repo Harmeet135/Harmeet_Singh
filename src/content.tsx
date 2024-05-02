@@ -28,17 +28,19 @@ export const getStyle = () => {
 
 const PlasmoOverlay = () => {
   const [showPrompt, setShowPrompt] = useState(false)
+
   const togglePrompt = () => setShowPrompt(true);
-  const hidePrompt = () => setShowPrompt(false);
 
   return (
     <>
+    {!showPrompt ? 
     <div className="absolute z-50 flex w-8 right-0 bottom-0">
     <button onClick={togglePrompt}>
       <img src={openprom} alt="" />
     </button>
     </div>
-    {showPrompt && <PromptBox onHide={hidePrompt} />}
+    :
+     <PromptBox onHide={() => setShowPrompt(false)} />}
     </>
   )
 }
