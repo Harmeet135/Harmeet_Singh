@@ -1,6 +1,8 @@
 import cssText from "data-text:~style.css"
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from "plasmo"
-import { CountButton } from "~features/CountButton"
+import { useState } from "react"
+import PromptBox from "~features/promptbox"
+import openprom from "./icons/openprom.png"
 
 export const config: PlasmoCSConfig = {
   matches: ["https://*.linkedin.com/*"]
@@ -25,10 +27,20 @@ export const getStyle = () => {
 }
 
 const PlasmoOverlay = () => {
+  const [showPrompt, setShowPrompt] = useState(false)
+  const togglePrompt = () => {
+    setShowPrompt(true);
+  };
+
   return (
-    <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
-      <CountButton />
+    <>
+    <div className="absolute z-50 flex w-8 right-0 bottom-0">
+    <button onClick={togglePrompt}>
+      <img src={openprom} alt="" />
+    </button>
     </div>
+    {showPrompt && <PromptBox />}
+    </>
   )
 }
 
