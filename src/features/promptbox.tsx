@@ -40,12 +40,9 @@ const PromptBox =({ onHide })=> {
     }
   };
   
-  
-  
   useEffect(() => {
     function handleClickOutside(event) {
 
-      console.log(event)
       if (!event.target.closest("plasmo-csui")) {
         onHide();
       }
@@ -61,7 +58,7 @@ const PromptBox =({ onHide })=> {
     setPromptText(e.target.value);
   };
   return (
-    <div ref={promptBoxRef} className='fixed w-full max-w-[500px] flex justify-center items-center bottom-[28rem] right-[50%] z-50'>
+    <div ref={promptBoxRef} className='fixed w-full max-w-[500px] flex justify-center items-center dynamic-right lg:right-custom-right bottom-[28rem] z-50'>
     <div  className=' flex flex-col bg-[#F9FAFB] rounded-lg p-4 w-full mx-4  gap-4 items-center shadow-md'>
         <div className="w-full overflow-y-auto max-h-[300px] mb-4">
           {chatHistory.map((entry, index) => (
