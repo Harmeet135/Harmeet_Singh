@@ -16,11 +16,10 @@ See how to load the extension: https://docs.plasmo.com/framework/workflows/dev#l
 
 For further guidance, [visit our Documentation](https://docs.plasmo.com/).
 
-## Where to edit?
+## Video Demo
 
-- The main code is located in src/content.tsx. By default, when you run the extension, it displays a static count button on the LinkedIn website. You need to replace it with your own code.
+[![Watch the video](https://www.loom.com/share/a857c4e94c04402b9afed84e6b9a8044)]
 
-![count btn on linkedin](count_btn_on_linkedin.png)
 
 ## Making production build
 

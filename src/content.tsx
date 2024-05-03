@@ -4,43 +4,54 @@ import { useState } from "react"
 import PromptBox from "~features/promptbox"
 import openprom from "./icons/openprom.png"
 
+// Configuration for the Plasmo content script, specifying URL patterns
 export const config: PlasmoCSConfig = {
   matches: ["https://*.linkedin.com/*"]
 }
 
+// Function to determine where to inject the component in the DOM
 export const getInlineAnchor: PlasmoGetInlineAnchor = () => {
-  const messageForm = document.querySelector(".msg-form__contenteditable");
+  const messageForm = document.querySelector(
+    ".msg-form__contenteditable"
+  ) as HTMLElement | null
   if (messageForm) {
     return {
       element: messageForm,
-      insertPosition: "beforeend" 
-    };
+      insertPosition: "beforeend" // Specify the insertion position
+    }
   }
-  console.error("Target element not found.");
-  return null;
+  console.error("Target element not found.")
+  return null
 }
 
-export const getStyle = () => {
+// Function to create a style element with custom CSS for the component
+export const getStyle = (): HTMLStyleElement => {
   const style = document.createElement("style")
-  style.textContent = cssText
+  style.textContent = cssText 
   return style
 }
 
-const PlasmoOverlay = () => {
-  const [showPrompt, setShowPrompt] = useState(false)
+// Main React Functional Component for the overlay
+const PlasmoOverlay: React.FC = () => {
+  // State to control visibility of the prompt box
+  const [showPrompt, setShowPrompt] = useState<boolean>(false)
 
-  const togglePrompt = () => setShowPrompt(true);
+  // Function to toggle the visibility of the prompt box
+  const togglePrompt = () => setShowPrompt((prev) => !prev)
 
   return (
     <>
-    {!showPrompt ? 
-    <div className="absolute z-50 flex w-8 right-0 bottom-0">
-    <button onClick={togglePrompt}>
-      <img src={openprom} alt="" />
-    </button>
-    </div>
-    :
-     <PromptBox onHide={() => setShowPrompt(false)} />}
+      {!showPrompt ? (
+        // Button to open the prompt box
+        <div className="absolute z-50 flex w-8 right-0 bottom-[-2rem]">
+          <button onClick={togglePrompt}>
+            <img src={openprom} alt="Open prompt" />
+          </button>
+        </div>
+      ) : (
+        // Render the PromptBox component with onHide handler
+        <PromptBox onHide={() => setShowPrompt(false)} />
+      )}
     </>
   )
 }
